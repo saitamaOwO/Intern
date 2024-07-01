@@ -1,7 +1,7 @@
-import React, { useEffect } from 'react';
+import React, { useEffect } from "react";
 import { useTheme } from "@mui/material";
 import { ResponsiveBar } from "@nivo/bar";
-import axios from 'axios';
+import axios from "axios";
 import { tokens } from "../theme";
 
 const BarChart = ({ isDashboard = false, filters }) => {
@@ -12,21 +12,21 @@ const BarChart = ({ isDashboard = false, filters }) => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get('http://localhost:5001/api/data', { params: filters });
+        const response = await axios.get("http://localhost:5001/api/data", { params: filters });
         setData(response.data);
       } catch (error) {
-        console.error('Error fetching data', error);
+        console.error("Error fetching data", error);
       }
     };
 
     fetchData();
-  }, [filters]); // Ensure useEffect updates when filters change
+  }, [filters]);
 
   return (
     <ResponsiveBar
       data={data}
-      keys={['intensity', 'likelihood', 'relevance']}
-      indexBy="topics"
+      keys={["intensity", "likelihood", "relevance"]}
+      indexBy="topic"
       theme={{
         axis: {
           domain: {
@@ -90,7 +90,7 @@ const BarChart = ({ isDashboard = false, filters }) => {
         tickSize: 5,
         tickPadding: 5,
         tickRotation: 0,
-        legend: isDashboard ? undefined : "Topics",
+        legend: isDashboard ? undefined : "topic",
         legendPosition: "middle",
         legendOffset: 32,
       }}
@@ -102,7 +102,7 @@ const BarChart = ({ isDashboard = false, filters }) => {
         legendPosition: "middle",
         legendOffset: -40,
       }}
-      enableLabel={false}
+      enableLabel={1}
       labelSkipWidth={12}
       labelSkipHeight={12}
       labelTextColor={{
